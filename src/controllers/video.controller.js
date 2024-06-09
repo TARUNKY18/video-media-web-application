@@ -53,14 +53,21 @@ const publishAVideo = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Video and Thumbnail not uploaded on cloudinary")
     }
 
-    const videoObj = {
+
+    const videoObj = await Video.create({
         videoFile: video.url,
         thumbnail: thumbnail.url,
         title,
         description,
         duration: video.duration,
         isPublished,
-        owner: req.user
+        owner: req.user._id
+    })
+
+   // const uploadedVideo = await Video.findById(videoObj._id)
+
+    if(!videoObj){
+        throw new ApiError(500, "Something went wrong while uploading  the video")
     }
 
     return res.status(200)
