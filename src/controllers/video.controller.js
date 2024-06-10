@@ -146,7 +146,7 @@ const deleteVideo = asyncHandler(async (req, res) => {
 
     const deletedVideo = await Video.findByIdAndDelete(videoId)
 
-    if(!deletedVideo){
+    if(deletedVideo.deletedCount === 0){
         throw new ApiError(405, "Video not found")
     }
 
