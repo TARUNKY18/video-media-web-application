@@ -5,7 +5,7 @@ import { createTweet, deleteTweet, getUserTweets, updateTweeet } from "../contro
 
 const router = Router()
 
-router.route(verifyJWT)
+router.use(verifyJWT)
 
 router.route("/create-tweet").post(createTweet)
 router.route("/update-tweet").patch(updateTweeet)
